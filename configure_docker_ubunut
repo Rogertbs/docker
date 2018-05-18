@@ -1,0 +1,77 @@
+"INTALANDO E CONFIGURANDO O DOCKER NO LINUX ubuntu"
+
+#COM USUÁRIO ROOT EXECUTE OS SEGUITES COMANDOS
+
+wget -qO- https://get.docker.com/ | sh
+
+#APÓS TERMINADA A INSTALAÇÃO DO DOCKER FAÇA A INSTALAÇÃO DO COMPOSER
+#SEGUE OS COMANDOS ABAIXO
+
+curl -L https://github.com/docker/compose/releases/download/1.6.2/docker-compose\ -`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+
+
+#INSTALAÇÃO DO DOCKER MACHINE
+
+curl -L https://github.com/docker/machine/releases/download/v0.6.0/docker-mach\ ine-`uname -s`-`uname -m` > /usr/local/bin/docker-machine && \ chmod +x /usr/local/bin/docker-machine
+
+#APÓS A INSTALAÇÃO DO DOCKER EXECUTE O SEGUINTE COMANDO PARA TESTAR
+
+docker run hello-world
+
+#SE O RETORNO FOR SEMELHANTE AO ABAIXO PARABÉNS SEU DOCKER ESTÁ FUNCIONANDO
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/engine/userguide/
+
+
+#DOWNLOAD DE UMA IMAGEM NO DOCKER, NO EXEMPLO VAMOS BAIXAR UMA IMAGEM UBUNTU
+
+docker pull ubuntu
+
+#EXECUTE O COMANDO "docker images" PARA VISUALIZAR A IMAGEM QUE FOI ADICIONADA
+
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+ubuntu              latest              452a96d81c30        2 weeks ago         79.6MB
+
+ #ATÉ O MOMENTO VOCÊ JÁ TEM UMA IMAGEM PARA PODER CRIAR OS CONTAINER
+
+#EXECUTE O COMANDO "docker inspect ubuntu" PARA INSPESIONAR OS DADOS DE SUA IMAGEM
+#O RETORNO É UM JSON COM TODAS AS INFORMAÇÕES DA IMAGEM PASSADA NO PARÂMETRO DO COMANDO
+
+#CRIANDO UM CONTAINER A PARTIR DE UMA IMAGEM QUE BAIXAMOS
+
+docker run -it --rm --name my_ubuntu ubuntu bash
+
+#FOI CRIADO UM CONTAINER COM NOME "my_ubuntu" A PARTIR DA IMAGEM "ubuntu", O COMANDO "--rm"
+#SIGNIFICA QUE QUANDO O CONTAINER FOR FINALIZADO ELE É EXCLUIDO, ANTES DE FINALIZAR O CONTAINER
+#EXECUTE O COMANDO "docker ps -a" NO QUAL O CONTAINER "my_ubuntu" APARECERÁ NO RETORNO
+
+#PARA PARAR O PROCESSO DO CONTAINER EXECUTE O COMANDO:
+
+docker stop my_ubuntu
+
+#CASO DESEJE INICIAR NOVAMENTE:
+
+docker start my_ubuntu
+
+#PRONTO AQUI VOCÊ JÁ CONSEGUE INSTALAR O DOCKER BAIXAR UMA IMAGEM E GERENCIAR UM CONTAINER
+# REFERÊNCIAS: https://docs.docker.com/
