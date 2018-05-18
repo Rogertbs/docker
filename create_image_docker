@@ -1,0 +1,43 @@
+#CRIANDO UMA IMAGEM PERSONALIZADA USANDO COMMIT
+#PRIMEIRAMENTE VAMOS CRIAR UM container
+
+docker run -t --name container ubuntu:16.04 bash
+
+#DENTRO DO TERMINAL DO CONTAINER INSTALE O NGINX CONFORME OS COMANDOS ABAIXO
+#CASO NÃO CONSIGA ACESSAR O CONTAINER EM EXECUÇÃO USE OS COMANDOS A SEGUIR PARA ACESSAR O BASH DO CONTAINER
+
+docker ps #para visualizar as informações do container
+
+docker exec -i -t ID-CONTAINER /bin/bash #NO LUGAR DE "ID-CONTAINER" DIGITE O ID MOSTRADO NO "docker ps"
+
+#AGORA FAÇA A INSTALAÇÃO DENTRO DO CONTAINER
+
+apt-get update
+apt-get install nginx -y
+exit
+
+#APÓS TERMINAR A INSTALAÇÃO E SAIR DO CONTAINER VAMOS PARÁ-LO
+
+docker stop container
+
+#EFETUAR O COMMIT DESSE CONTAINER EM UMA IMAGEM
+
+docker commit container my_ubuntu:nginx
+
+#APÓS ISSO A IMAGEM JÁ FOI CRIADA EXECUTE O COMANDO PARA CONFIRMAR
+
+docker images
+
+#TERÁ O SEGUINTE RETORNO
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+my_ubuntu           nginx               3b4f088a2ccc        3 minutes ago       210MB
+
+#SIGNIFICA QUE VOCÊ AGORA TEM UMA IMAGEM NA QUAL PODERÁ SUBIR CONTAINTER QUE JÁ VEM POR PADRÃO
+#O NGINX INSTALADO
+#PARA SUBIR UM NOVO CONTAINER A PARTIR DESTA IMAGEM BASTA OS SEGUINTES COMANDOS
+
+docker run -it --rm --name container_x my_ubuntu:nginx bash
+
+#ASSIM VOCÊ CRIOU UMA IMAGEM PERSONALIZADA E UM CONTAINER A PARTIR DA MESMA.
+
+#REFERÊNCIAS : Gomes 2016 (Docker para Desenvolvedores)
